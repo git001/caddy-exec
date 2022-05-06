@@ -6,6 +6,7 @@ import (
 
 	"github.com/caddyserver/caddy/v2"
 	"github.com/caddyserver/caddy/v2/modules/caddyhttp"
+	"go.uber.org/zap"
 )
 
 var (
@@ -49,6 +50,10 @@ func (m Middleware) ServeHTTP(w http.ResponseWriter, r *http.Request, next caddy
 
 	for index, argument := range m.Args {
 		m.Args[index] = repl.ReplaceAll(argument, "")
+		m.Cmd.log.Debug("Replace Argument",
+			zap.String("argument orig", argument),
+			zap.String("argument repl", m.Args[index]),
+		)
 	}
 
 	err := m.run()

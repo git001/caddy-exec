@@ -105,7 +105,7 @@ func parseGlobalCaddyfileBlock(d *caddyfile.Dispenser, prev interface{}) (interf
 //
 func (c *Cmd) UnmarshalCaddyfile(d *caddyfile.Dispenser) error {
 	// consume "exec", then grab the command, if present.
-	if d.NextArg() && d.NextArg() {
+	if d.NextArg() {
 		c.Command = d.Val()
 	}
 
